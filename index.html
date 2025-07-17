@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Yuliana!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            perspective: 1000px; /* Untuk efek parallax */
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.5s ease-out; /* Transisi untuk parallax */
+        }
+        /* Kelas untuk animasi fade-in */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            color: #e91e63;
+            margin-top: 0;
+            margin-bottom: 10px;
+            min-height: 1.2em; /* Ruang untuk efek ketik */
+        }
+        .name {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+        #birthday-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .wish {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        #surprise-button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
+        }
+        #surprise-button:hover {
+            background-color: #e91e63;
+            transform: scale(1.05);
+        }
+        .surprise {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff0f5;
+            border-left: 5px solid #e91e63;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .gift-box {
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        .gift-box .icon {
+            font-size: 4em;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        .voucher-link {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e3f2fd;
+            border: 2px dashed #90caf9;
+            border-radius: 10px;
+        }
+        .voucher-link a {
+            color: #0d47a1;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        #birthday-song {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="birthday-song" src="lagu-ultah.mp3" ></audio>
+
+    <div class="card">
+        <h1 id="main-title"></h1>
+        <h2 class="name reveal">Yuliana Wulandari</h2>
+        <img id="birthday-photo" class="reveal" src="foto-yuliana.jpg" alt="Foto Yuliana">
+        <p class="wish reveal">Semoga hari ini menjadi hari yang paling istimewa untukmu. Dipenuhi dengan tawa, cinta, dan semua hal yang membuatmu bahagia. Semoga semua impian dan harapanmu di tahun ini tercapai.</p>
+        <p class="reveal">Teruslah menjadi pribadi yang luar biasa!</p>
+        
+        <button id="surprise-button" class="reveal">Klik di sini untuk kejutan!</button>
+        
+        <div id="surprise-message" class="surprise">
+            <p><strong>Sebuah Pesan Kecil:</strong></p>
+            <p>Di setiap langkahmu, semoga selalu ada kebahagiaan. Di setiap doamu, semoga selalu ada jawaban. Selamat bertambah usia, Yuliana! Nikmati harimu sepenuhnya!</p>
+        </div>
+
+        <div id="gift-container" class="gift-box reveal">
+            <p>Ada satu hadiah lagi untukmu, klik di bawah!</p>
+            <div class="icon">🎁</div>
+        </div>
+
+        <div id="voucher-container" class="voucher-link">
+            <p>Selamat! Ini voucher spesial untukmu:</p>
+            <a href="https://app.u.shopeepay.co.id/u/hDPPa65d6JRyDSYHon3FD" target="_blank">Klik di sini untuk mengklaim Vouchermu!</a>
+            <p><small>(tolong diterima yaa)</small></p>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elemen-elemen ---
+            const surpriseButton = document.getElementById('surprise-button');
+            const surpriseMessage = document.getElementById('surprise-message');
+            const giftContainer = document.getElementById('gift-container');
+            const voucherContainer = document.getElementById('voucher-container');
+            const birthdaySong = document.getElementById('birthday-song');
+            const myCanvas = document.getElementById('confetti-canvas');
+            const mainTitle = document.getElementById('main-title');
+            const card = document.querySelector('.card');
+
+            // --- Logika Tombol & Hadiah (Tetap Sama) ---
+            const myConfetti = confetti.create(myCanvas, { resize: true, useWorker: true });
+
+            surpriseButton.addEventListener('click', () => {
+                birthdaySong.play();
+                surpriseMessage.style.display = 'block';
+                surpriseButton.style.display = 'none';
+                surpriseMessage.classList.add('visible'); // Tambahkan kelas untuk animasi
+
+                const duration = 3 * 1000;
+                const animationEnd = Date.now() + duration;
+                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+                function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+                const interval = setInterval(() => {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) return clearInterval(interval);
+                    const particleCount = 50 * (timeLeft / duration);
+                    myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+            });
+
+            giftContainer.addEventListener('click', () => {
+                giftContainer.style.display = 'none';
+                voucherContainer.style.display = 'block';
+                voucherContainer.classList.add('visible'); // Tambahkan kelas untuk animasi
+            });
+
+            // --- EFEK BARU ---
+
+            // 1. Efek Mengetik
+            const textToType = "Selamat Ulang Tahun!";
+            let i = 0;
+            function typeWriter() {
+                if (i < textToType.length) {
+                    mainTitle.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100); // Kecepatan mengetik
+                }
+            }
+            
+            // 2. Animasi Fade-in saat elemen terlihat
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 3. Efek Parallax pada Kartu
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                const x = (clientX / innerWidth - 0.5) * 20; // Gerakan horizontal
+                const y = (clientY / innerHeight - 0.5) * 20; // Gerakan vertikal
+                card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+            });
+
+            // Mulai efek mengetik setelah halaman dimuat
+            typeWriter();
+        });
+    </script>
+</body>
+</html>
